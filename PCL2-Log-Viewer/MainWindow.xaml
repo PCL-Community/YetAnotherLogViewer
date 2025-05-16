@@ -1,0 +1,66 @@
+<!-- ReSharper disable Xaml.RedundantResource -->
+<local:GeneralWindow x:Class="LogViewer.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:ui="clr-namespace:AdonisUI;assembly=AdonisUI"
+        xmlns:ext="clr-namespace:AdonisUI.Extensions;assembly=AdonisUI"
+        xmlns:local="clr-namespace:LogViewer"
+        xmlns:prop="clr-namespace:LogViewer.Properties"
+        mc:Ignorable="d"
+        ext:CursorSpotlightExtension.MaxBlurRadius="64"
+        ext:CursorSpotlightExtension.RelativeSpotlightSize="0.5"
+        Title="{x:Static prop:R.AppTitle}"
+        WindowStartupLocation="CenterScreen" ResizeMode="NoResize"
+        Height="350" Width="525">
+    
+    <DockPanel>
+        
+        <Menu DockPanel.Dock="Top" Background="{StaticResource MenuBarBackground}">
+            
+            <Menu.Resources>
+                <CornerRadius x:Key="{x:Static ui:Dimensions.CornerRadius}">0</CornerRadius>
+            </Menu.Resources>
+            
+            <MenuItem Header="{x:Static prop:R.MenuFile}">
+                <MenuItem Header="{x:Static prop:R.OptionOpen}" Click="MenuItemOpenFile_OnClick"/>
+                <MenuItem Header="{x:Static prop:R.OptionConnect}" Click="MenuItemConnect_OnClick"/>
+                <MenuItem Header="{x:Static prop:R.OptionOpenRecent}" Click="MenuItemOpenRecent_OnClick"/>
+                <MenuItem Header="{x:Static prop:R.OptionSaveAll}" Click="MenuItemSaveAll_OnClick"/>
+                <Separator/>
+                <MenuItem Header="{x:Static prop:R.OptionSettings}" Click="MenuItemOpenSettings_OnClick"/>
+                <Separator/>
+                <MenuItem Header="{x:Static prop:R.OptionExit}" Click="MenuItemExit_OnClick"/>
+            </MenuItem>
+            
+            <MenuItem Header="{x:Static prop:R.MenuWindow}">
+                <MenuItem Header="{x:Static prop:R.OptionShowMainWindow}" Click="MenuItemShowMainWindow_OnClick"/>
+                <MenuItem Header="{x:Static prop:R.OptionAllWindows}" Click="MenuItemAllWindows_OnClick" ItemsSource="{Binding Source={x:Static local:App.ViewerIdentifiers}}"/>
+                <Separator/>
+                <MenuItem Header="{x:Static prop:R.OptionWindowMinimize}" Click="MenuItemMinimize_OnClick"/>
+                <MenuItem Header="{x:Static prop:R.OptionWindowCloseCurrent}" ToolTip="{x:Static prop:R.OptionWindowCloseCurrentTip}" Click="MenuItemCloseCurrentWindow_OnClick"/>
+                <MenuItem Header="{x:Static prop:R.OptionWindowCloseAll}" ToolTip="{x:Static prop:R.OptionWindowCloseAllTip}" Click="MenuItemCloseAllWindow_OnClick"/>
+            </MenuItem>
+            
+            <MenuItem Header="{x:Static prop:R.MenuHelp}">
+                <MenuItem Header="{x:Static prop:R.OptionRepository}" Click="MenuItemBrowseRepository_OnClick"/>
+                <MenuItem Header="{x:Static prop:R.OptionAbout}" Click="MenuItemShowAbout_OnClick"/>
+            </MenuItem>
+            
+        </Menu>
+        
+        <StackPanel Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Center">
+            
+            <StackPanel.Resources>
+                <CornerRadius x:Key="{x:Static ui:Dimensions.CornerRadius}">25</CornerRadius>
+            </StackPanel.Resources>
+            
+            <Button MinWidth="200" MinHeight="50" Margin="0,10" Content="{x:Static prop:R.ButtonOpenFile}" Style="{DynamicResource {x:Static ui:Styles.AccentButton}}" Click="MenuItemOpenFile_OnClick"/>
+            <Button MinWidth="200" MinHeight="50" Margin="0,10" Content="{x:Static prop:R.ButtonStartConnection}" Click="MenuItemConnect_OnClick"/>
+            
+        </StackPanel>
+        
+    </DockPanel>
+    
+</local:GeneralWindow>

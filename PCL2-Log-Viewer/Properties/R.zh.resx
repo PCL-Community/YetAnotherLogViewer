@@ -1,0 +1,131 @@
+﻿<root>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <data name="AppTitle" xml:space="preserve">
+        <value>PCL2 日志查看器</value>
+    </data>
+    <data name="ButtonOpenFile" xml:space="preserve">
+        <value>打开文件...</value>
+    </data>
+    <data name="ButtonStartConnection" xml:space="preserve">
+        <value>建立连接... (未实现)</value>
+    </data>
+    <data name="MenuFile" xml:space="preserve">
+        <value>文件 (_F)</value>
+    </data>
+    <data name="MenuHelp" xml:space="preserve">
+        <value>帮助 (_H)</value>
+    </data>
+    <data name="MenuWindow" xml:space="preserve">
+        <value>窗口 (_W)</value>
+    </data>
+    <data name="OptionExit" xml:space="preserve">
+        <value>退出 (_X)</value>
+    </data>
+    <data name="OptionOpen" xml:space="preserve">
+        <value>打开... (_O)</value>
+    </data>
+    <data name="OptionSettings" xml:space="preserve">
+        <value>选项... (_I)</value>
+    </data>
+    <data name="OptionOpenRecent" xml:space="preserve">
+        <value>打开最近 (_R)</value>
+    </data>
+    <data name="OptionSave" xml:space="preserve">
+        <value>保存 (_S)</value>
+    </data>
+    <data name="OptionSaveAll" xml:space="preserve">
+        <value>保存全部</value>
+    </data>
+    <data name="OptionShowMainWindow" xml:space="preserve">
+        <value>显示主窗口 (_M)</value>
+    </data>
+    <data name="OptionAbout" xml:space="preserve">
+        <value>关于 (_A)</value>
+    </data>
+    <data name="OptionSaveCopy" xml:space="preserve">
+        <value>另存为...</value>
+    </data>
+    <data name="OptionWindowCloseAll" xml:space="preserve">
+        <value>关闭全部</value>
+    </data>
+    <data name="OptionWindowCloseCurrent" xml:space="preserve">
+        <value>关闭当前 (_C)</value>
+    </data>
+    <data name="OptionWindowCloseCurrentTip" xml:space="preserve">
+        <value>关闭当前窗口</value>
+    </data>
+    <data name="OptionWindowMaximize" xml:space="preserve">
+        <value>最大化 (_X)</value>
+    </data>
+    <data name="OptionWindowMinimize" xml:space="preserve">
+        <value>最小化 (_I)</value>
+    </data>
+    <data name="OptionWindowCloseAllTip" xml:space="preserve">
+        <value>关闭全部窗口并显示主窗口</value>
+    </data>
+    <data name="OptionAllWindows" xml:space="preserve">
+        <value>所有窗口 (_W)</value>
+    </data>
+    <data name="OptionRepository" xml:space="preserve">
+        <value>_GitHub 仓库</value>
+    </data>
+    <data name="TextExceptionThrown" xml:space="preserve">
+        <value>发生异常</value>
+    </data>
+    <data name="TextReportUnhandledException" xml:space="preserve">
+        <value>程序抛出了未处理的异常，请在我们的 GitHub 仓库提交一个 issue 来报告这个问题。</value>
+    </data>
+    <data name="ErrorFailedOpenUrl" xml:space="preserve">
+        <value>打开 URL 失败</value>
+    </data>
+    <data name="ErrorNoDefaultBrowser" xml:space="preserve">
+        <value>没有默认浏览器。</value>
+    </data>
+    <data name="OptionConnect" xml:space="preserve">
+        <value>连接... (_C)</value>
+    </data>
+    <data name="TextLoading" xml:space="preserve">
+        <value>加载中...</value>
+    </data>
+    <data name="MenuEdit" xml:space="preserve">
+        <value>编辑 (_E)</value>
+    </data>
+    <data name="OptionCopy" xml:space="preserve">
+        <value>复制 (_C)</value>
+    </data>
+    <data name="OptionFind" xml:space="preserve">
+        <value>查找... (_F)</value>
+    </data>
+    <data name="OptionSelectAll" xml:space="preserve">
+        <value>全选 (_A)</value>
+    </data>
+    <data name="OptionReplace" xml:space="preserve">
+        <value>替换... (_R)</value>
+    </data>
+    <data name="TextLogFileType" xml:space="preserve">
+        <value>日志文件</value>
+    </data>
+    <data name="ErrorFailedReadFile" xml:space="preserve">
+        <value>读取文件失败</value>
+    </data>
+    <data name="TextSaveFile" xml:space="preserve">
+        <value>是否保存为</value>
+    </data>
+    <data name="SettingLogLevel" xml:space="preserve">
+        <value>日志级别</value>
+    </data>
+    <data name="SettingShowModules" xml:space="preserve">
+        <value>显示模块</value>
+    </data>
+</root>
