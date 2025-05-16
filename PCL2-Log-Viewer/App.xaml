@@ -38,29 +38,29 @@
             <SolidColorBrush x:Key="Background" Color="#3233BBFF"/>
             <SolidColorBrush x:Key="PanelBackground" Color="White"/>
             
-            <Color x:Key="NormalLevelColor" >DarkGray</Color>
-            <Color x:Key="DeveloperLevelColor" >Black</Color>
+            <Color x:Key="TraceLevelColor" >DarkGray</Color>
+            <Color x:Key="DevLevelColor" >Black</Color>
             <Color x:Key="DebugLevelColor" >DarkBlue</Color>
-            <Color x:Key="HintLevelColor" >LimeGreen</Color>
-            <Color x:Key="MsgBoxLevelColor" >BlueViolet</Color>
-            <Color x:Key="FeedbackLevelColor" >DarkOrange</Color>
-            <Color x:Key="AssertLevelColor" >Red</Color>
+            <Color x:Key="InfoLevelColor" >LimeGreen</Color>
+            <Color x:Key="NoticeLevelColor" >BlueViolet</Color>
+            <Color x:Key="WarningLevelColor" >DarkOrange</Color>
+            <Color x:Key="ErrorLevelColor" >Red</Color>
             <system:Double x:Key="LevelOpacity">0.1</system:Double>
             
-            <SolidColorBrush x:Key="NormalBrush" Color="{StaticResource NormalLevelColor}"/>
-            <SolidColorBrush x:Key="DeveloperBrush" Color="{StaticResource DeveloperLevelColor}"/>
+            <SolidColorBrush x:Key="TraceBrush" Color="{StaticResource TraceLevelColor}"/>
+            <SolidColorBrush x:Key="DevBrush" Color="{StaticResource DevLevelColor}"/>
             <SolidColorBrush x:Key="DebugBrush" Color="{StaticResource DebugLevelColor}"/>
-            <SolidColorBrush x:Key="HintBrush" Color="{StaticResource HintLevelColor}"/>
-            <SolidColorBrush x:Key="MsgBoxBrush" Color="{StaticResource MsgBoxLevelColor}"/>
-            <SolidColorBrush x:Key="FeedbackBrush" Color="{StaticResource FeedbackLevelColor}"/>
-            <SolidColorBrush x:Key="AssertBrush" Color="{StaticResource AssertLevelColor}"/>
-            <SolidColorBrush x:Key="NormalBrushOpacity" Color="{StaticResource NormalLevelColor}" Opacity="{StaticResource LevelOpacity}"/>
-            <SolidColorBrush x:Key="DeveloperBrushOpacity" Color="{StaticResource DeveloperLevelColor}" Opacity="{StaticResource LevelOpacity}"/>
+            <SolidColorBrush x:Key="InfoBrush" Color="{StaticResource InfoLevelColor}"/>
+            <SolidColorBrush x:Key="NoticeBrush" Color="{StaticResource NoticeLevelColor}"/>
+            <SolidColorBrush x:Key="WarningBrush" Color="{StaticResource WarningLevelColor}"/>
+            <SolidColorBrush x:Key="ErrorBrush" Color="{StaticResource ErrorLevelColor}"/>
+            <SolidColorBrush x:Key="TraceBrushOpacity" Color="{StaticResource TraceLevelColor}" Opacity="{StaticResource LevelOpacity}"/>
+            <SolidColorBrush x:Key="DevBrushOpacity" Color="{StaticResource DevLevelColor}" Opacity="{StaticResource LevelOpacity}"/>
             <SolidColorBrush x:Key="DebugBrushOpacity" Color="{StaticResource DebugLevelColor}" Opacity="{StaticResource LevelOpacity}"/>
-            <SolidColorBrush x:Key="HintBrushOpacity" Color="{StaticResource HintLevelColor}" Opacity="{StaticResource LevelOpacity}"/>
-            <SolidColorBrush x:Key="MsgBoxBrushOpacity" Color="{StaticResource MsgBoxLevelColor}" Opacity="{StaticResource LevelOpacity}"/>
-            <SolidColorBrush x:Key="FeedbackBrushOpacity" Color="{StaticResource FeedbackLevelColor}" Opacity="{StaticResource LevelOpacity}"/>
-            <SolidColorBrush x:Key="AssertBrushOpacity" Color="{StaticResource AssertLevelColor}" Opacity="{StaticResource LevelOpacity}"/>
+            <SolidColorBrush x:Key="InfoBrushOpacity" Color="{StaticResource InfoLevelColor}" Opacity="{StaticResource LevelOpacity}"/>
+            <SolidColorBrush x:Key="NoticeBrushOpacity" Color="{StaticResource NoticeLevelColor}" Opacity="{StaticResource LevelOpacity}"/>
+            <SolidColorBrush x:Key="WarningBrushOpacity" Color="{StaticResource WarningLevelColor}" Opacity="{StaticResource LevelOpacity}"/>
+            <SolidColorBrush x:Key="ErrorBrushOpacity" Color="{StaticResource ErrorLevelColor}" Opacity="{StaticResource LevelOpacity}"/>
 
             <FontFamily x:Key="MonoFont">Consolas, Microsoft YaHei Mono, Microsoft YaHei</FontFamily>
             

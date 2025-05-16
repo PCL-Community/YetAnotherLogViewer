@@ -74,13 +74,13 @@
                         <Label Content="{x:Static prop:R.SettingLogLevel}" FontWeight="Bold"/>
                         
                         <!-- TODO localization -->
-                        <ToggleButton Content="Normal" Tag="Normal" IsChecked="True" Foreground="{StaticResource NormalBrush}"/>
-                        <ToggleButton Content="Developer" Tag="Developer" IsChecked="True" Foreground="{StaticResource DeveloperBrush}"/>
+                        <ToggleButton Content="Trace" Tag="Trace" IsChecked="True" Foreground="{StaticResource TraceBrush}"/>
+                        <ToggleButton Content="Dev" Tag="Dev" IsChecked="True" Foreground="{StaticResource DevBrush}"/>
                         <ToggleButton Content="Debug" Tag="Debug" IsChecked="True" Foreground="{StaticResource DebugBrush}"/>
-                        <ToggleButton Content="Hint" Tag="Hint" IsChecked="True" Foreground="{StaticResource HintBrush}"/>
-                        <ToggleButton Content="MsgBox" Tag="MsgBox" IsChecked="True" Foreground="{StaticResource MsgBoxBrush}"/>
-                        <ToggleButton Content="Feedback" Tag="Feedback" IsChecked="True" Foreground="{StaticResource FeedbackBrush}"/>
-                        <ToggleButton Content="Assert" Tag="Assert" IsChecked="True" Foreground="{StaticResource AssertBrush}"/>
+                        <ToggleButton Content="Info" Tag="Info" IsChecked="True" Foreground="{StaticResource InfoBrush}"/>
+                        <ToggleButton Content="Notice" Tag="Notice" IsChecked="True" Foreground="{StaticResource NoticeBrush}"/>
+                        <ToggleButton Content="Warning" Tag="Warning" IsChecked="True" Foreground="{StaticResource WarningBrush}"/>
+                        <ToggleButton Content="Error" Tag="Error" IsChecked="True" Foreground="{StaticResource ErrorBrush}"/>
                         
                     </StackPanel>
                 </local:BorderCard>
@@ -150,9 +150,9 @@
                                     <Border.Style>
                                         <Style TargetType="Border">
                                             <Style.Triggers>
-                                                <DataTrigger Binding="{Binding Level}" Value="MsgBox"><Setter Property="Background" Value="{StaticResource MsgBoxBrushOpacity}"/></DataTrigger>
-                                                <DataTrigger Binding="{Binding Level}" Value="Feedback"><Setter Property="Background" Value="{StaticResource FeedbackBrushOpacity}"/></DataTrigger>
-                                                <DataTrigger Binding="{Binding Level}" Value="Assert"><Setter Property="Background" Value="{StaticResource AssertBrushOpacity}"/></DataTrigger>
+                                                <DataTrigger Binding="{Binding Level}" Value="Notice"><Setter Property="Background" Value="{StaticResource NoticeBrushOpacity}"/></DataTrigger>
+                                                <DataTrigger Binding="{Binding Level}" Value="Warning"><Setter Property="Background" Value="{StaticResource WarningBrushOpacity}"/></DataTrigger>
+                                                <DataTrigger Binding="{Binding Level}" Value="Error"><Setter Property="Background" Value="{StaticResource ErrorBrushOpacity}"/></DataTrigger>
                                             </Style.Triggers>
                                         </Style>
                                     </Border.Style>
@@ -179,13 +179,13 @@
                                             <Border.Style>
                                                 <Style TargetType="local:BorderTag" BasedOn="{StaticResource {x:Type local:BorderTag}}">
                                                     <Style.Triggers>
-                                                        <DataTrigger Binding="{Binding}" Value="Normal"><Setter Property="Background" Value="{StaticResource NormalBrushOpacity}"/></DataTrigger>
-                                                        <DataTrigger Binding="{Binding}" Value="Developer"><Setter Property="Background" Value="{StaticResource DeveloperBrushOpacity}"/></DataTrigger>
+                                                        <DataTrigger Binding="{Binding}" Value="Trace"><Setter Property="Background" Value="{StaticResource TraceBrushOpacity}"/></DataTrigger>
+                                                        <DataTrigger Binding="{Binding}" Value="Dev"><Setter Property="Background" Value="{StaticResource DevBrushOpacity}"/></DataTrigger>
                                                         <DataTrigger Binding="{Binding}" Value="Debug"><Setter Property="Background" Value="{StaticResource DebugBrushOpacity}"/></DataTrigger>
-                                                        <DataTrigger Binding="{Binding}" Value="Hint"><Setter Property="Background" Value="{StaticResource HintBrushOpacity}"/></DataTrigger>
-                                                        <DataTrigger Binding="{Binding}" Value="MsgBox"><Setter Property="Background" Value="{StaticResource MsgBoxBrushOpacity}"/></DataTrigger>
-                                                        <DataTrigger Binding="{Binding}" Value="Feedback"><Setter Property="Background" Value="{StaticResource FeedbackBrushOpacity}"/></DataTrigger>
-                                                        <DataTrigger Binding="{Binding}" Value="Assert"><Setter Property="Background" Value="{StaticResource AssertBrushOpacity}"/></DataTrigger>
+                                                        <DataTrigger Binding="{Binding}" Value="Info"><Setter Property="Background" Value="{StaticResource InfoBrushOpacity}"/></DataTrigger>
+                                                        <DataTrigger Binding="{Binding}" Value="Notice"><Setter Property="Background" Value="{StaticResource NoticeBrushOpacity}"/></DataTrigger>
+                                                        <DataTrigger Binding="{Binding}" Value="Warning"><Setter Property="Background" Value="{StaticResource WarningBrushOpacity}"/></DataTrigger>
+                                                        <DataTrigger Binding="{Binding}" Value="Error"><Setter Property="Background" Value="{StaticResource ErrorBrushOpacity}"/></DataTrigger>
                                                     </Style.Triggers>
                                                 </Style>
                                             </Border.Style>

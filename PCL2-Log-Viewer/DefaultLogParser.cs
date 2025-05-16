@@ -52,11 +52,17 @@ public class DefaultLogParser : ILogParser
                         {
                             sp = SplitBySpace(sp[1]);
                             module = GetTag(sp[0]);
-                        }
-                        if (PatternStartWithTag.IsMatch(sp[1]))
-                        {
-                            sp = SplitBySpace(sp[1]);
-                            level = GetTag(sp[0]);
+                            
+                            if (PatternStartWithTag.IsMatch(sp[1]))
+                            {
+                                sp = SplitBySpace(sp[1]);
+                                level = GetTag(sp[0]);
+                            }
+                            else if (LogItem.Levels.Contains(module))
+                            {
+                                level = module;
+                                module = null;
+                            }
                         }
                         content.Append(sp[1]);
                     }
@@ -77,8 +83,8 @@ public class DefaultLogParser : ILogParser
             void InvokeCallback()
             {
                 var str = content.ToString();
-                if (level == null && PatternErrorOrFailed.IsMatch(str)) level = "Assert";
-                itemCallback(new LogItem(time, module ?? "Default", level ?? "Developer", str));
+                if (level == null && PatternErrorOrFailed.IsMatch(str)) level = "Error";
+                itemCallback(new LogItem(time, module ?? "Default", level ?? "Debug", str));
                 module = null;
                 level = null;
                 content.Clear();
