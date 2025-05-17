@@ -5,12 +5,6 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Windows;
 using System.Windows.Threading;
-using CMessageBox = System.Windows.MessageBox;
-using CMessageBoxButton = System.Windows.MessageBoxButton;
-using CMessageBoxImage = System.Windows.MessageBoxImage;
-using MessageBox = AdonisUI.Controls.MessageBox;
-using MessageBoxButton = AdonisUI.Controls.MessageBoxButton;
-using MessageBoxImage = AdonisUI.Controls.MessageBoxImage;
 using R = LogViewer.Properties.R;
 
 namespace LogViewer;
@@ -26,26 +20,24 @@ public partial class App
 
     private void App_OnDispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
     {
-        ShowException(e.Exception, R.TextReportUnhandledException, null, true);
+        ShowException(e.Exception, R.TextReportUnhandledException);
         e.Handled = true;
     }
     
     #region Utils
 
-    public static void ShowException(Exception e, string? msg = null, Window? owner = null, bool system = false)
+    public static void ShowException(Exception e, string? msg = null, Window? owner = null)
     {
         var text = msg == null ? e.ToString() : $"{msg}\n\n{e}";
         var caption = $"{R.TextExceptionThrown} - {R.AppTitle}";
-        if (system)
-            if (owner == null) CMessageBox.Show(text, caption, CMessageBoxButton.OK, CMessageBoxImage.Error);
-            else CMessageBox.Show(owner, text, caption, CMessageBoxButton.OK, CMessageBoxImage.Error);
-        else
-            MessageBox.Show(owner, text, caption, MessageBoxButton.OK, MessageBoxImage.Error);
+        ShowMessage(text, owner, MessageBoxImage.Error, caption);
     }
 
-    public static void ShowMessage(string msg, Window? owner = null, MessageBoxImage icon = MessageBoxImage.Information)
+    public static void ShowMessage(string text, Window? owner = null, MessageBoxImage icon = MessageBoxImage.Information, string? caption = null)
     {
-        MessageBox.Show(owner, msg, $"{R.TextExceptionThrown} - {R.AppTitle}", MessageBoxButton.OK, icon);
+        caption ??= R.AppTitle;
+        if (owner == null) MessageBox.Show(text, caption, MessageBoxButton.OK, MessageBoxImage.Error);
+        else MessageBox.Show(owner, text, caption, MessageBoxButton.OK, MessageBoxImage.Error);
     }
 
     public static void OpenUrl(string url, Window? owner = null)

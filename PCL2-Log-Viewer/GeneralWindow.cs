@@ -4,7 +4,6 @@ using System.Security;
 using System.Windows;
 using System.Windows.Controls;
 using Microsoft.Win32;
-using MessageBoxImage = AdonisUI.Controls.MessageBoxImage;
 using R = LogViewer.Properties.R;
 
 namespace LogViewer;
