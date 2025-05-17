@@ -13,8 +13,8 @@ public partial class App
 {
     public App()
     {
+        // TODO arguments
         InitializeComponent();
-        // new TestWindow().Show();
         LogViewer.MainWindow.CreateOrActivate();
     }
 
