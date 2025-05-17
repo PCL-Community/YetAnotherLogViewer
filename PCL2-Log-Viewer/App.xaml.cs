@@ -36,8 +36,8 @@ public partial class App
     public static void ShowMessage(string text, Window? owner = null, MessageBoxImage icon = MessageBoxImage.Information, string? caption = null)
     {
         caption ??= R.AppTitle;
-        if (owner == null) MessageBox.Show(text, caption, MessageBoxButton.OK, MessageBoxImage.Error);
-        else MessageBox.Show(owner, text, caption, MessageBoxButton.OK, MessageBoxImage.Error);
+        if (owner == null) MessageBox.Show(text, caption, MessageBoxButton.OK, icon);
+        else MessageBox.Show(owner, text, caption, MessageBoxButton.OK, icon);
     }
 
     public static void OpenUrl(string url, Window? owner = null)
