@@ -90,12 +90,12 @@
                         
                         <Label DockPanel.Dock="Top" Content="{x:Static prop:R.SettingShowModules}" FontWeight="Bold"/>
                         
-                        <ItemsControl ItemsSource="{Binding Modules}">
+                        <ItemsControl ItemsSource="{Binding Modules}" ScrollViewer.CanContentScroll="True" VirtualizingPanel.ScrollUnit="Pixel">
                             
                             <ItemsControl.Template>
                                 <ControlTemplate TargetType="ItemsControl">
-                                    <ScrollViewer CanContentScroll="True">
-                                        <ItemsPresenter />
+                                    <ScrollViewer>
+                                        <ItemsPresenter/>
                                     </ScrollViewer>
                                 </ControlTemplate>
                             </ItemsControl.Template>
@@ -127,11 +127,11 @@
                 </local:BorderCard>
                 
                 <local:BorderCard>
-                    <ItemsControl ItemsSource="{Binding Logs}">
+                    <ItemsControl ItemsSource="{Binding Logs}" ScrollViewer.CanContentScroll="True" VirtualizingPanel.ScrollUnit="Pixel" VirtualizingStackPanel.VirtualizationMode="Recycling">
                         
                         <ItemsControl.Template>
                             <ControlTemplate TargetType="ItemsControl">
-                                <ScrollViewer CanContentScroll="True">
+                                <ScrollViewer>
                                     <ItemsPresenter/>
                                 </ScrollViewer>
                             </ControlTemplate>
@@ -139,7 +139,7 @@
                         
                         <ItemsControl.ItemsPanel>
                             <ItemsPanelTemplate>
-                                <VirtualizingStackPanel Orientation="Vertical" VirtualizationMode="Recycling"/>
+                                <VirtualizingStackPanel Orientation="Vertical"/>
                             </ItemsPanelTemplate>
                         </ItemsControl.ItemsPanel>
                         
