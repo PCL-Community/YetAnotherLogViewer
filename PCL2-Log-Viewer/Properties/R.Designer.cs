@@ -60,7 +60,7 @@ namespace LogViewer.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to https://github.com/PCL-Community/PCL2-Log-Viewer.
+        ///   Looks up a localized string similar to https://github.com/PCL-Community/YetAnotherLogViewer.
         /// </summary>
         public static string AppRepository {
             get {

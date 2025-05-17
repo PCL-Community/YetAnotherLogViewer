@@ -196,7 +196,7 @@
     <value>There is no default browser.</value>
   </data>
   <data name="AppRepository" xml:space="preserve">
-    <value>https://github.com/PCL-Community/PCL2-Log-Viewer</value>
+    <value>https://github.com/PCL-Community/YetAnotherLogViewer</value>
   </data>
   <data name="OptionConnect" xml:space="preserve">
     <value>_Connect...</value>
