@@ -60,6 +60,15 @@ namespace LogViewer.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to COMMIT_HASH.
+        /// </summary>
+        public static string AppCommit {
+            get {
+                return ResourceManager.GetString("AppCommit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to https://github.com/PCL-Community/YetAnotherLogViewer.
         /// </summary>
         public static string AppRepository {

@@ -1,0 +1,85 @@
+﻿name: Build
+
+on:
+  
+  push:
+    branches:
+      - main
+    paths:
+      - 'PCL2-Log-Viewer/**'
+      - '.github/workflows/**'
+
+  pull_request:
+    paths:
+      - 'PCL2-Log-Viewer/**'
+      - '.github/workflows/**'
+
+  workflow_dispatch:
+
+jobs:
+  
+  build:
+    
+    name: Build ${{ matrix.configuration }}-${{ matrix.architecture }} on ${{ matrix.os }}
+    
+    runs-on: ${{ matrix.os }}
+    
+    strategy:
+      matrix:
+        include:
+          - configuration: Debug
+            architecture: x64
+            os: windows-latest
+
+          - configuration: Debug
+            architecture: ARM64
+            os: windows-latest
+
+          - configuration: Release
+            architecture: x64
+            os: windows-latest
+
+          - configuration: Release
+            architecture: ARM64
+            os: windows-latest
+
+      fail-fast: false
+
+    env:
+      LANG: en_US.UTF-8
+
+    steps:
+
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set Describe
+        shell: bash
+        run: |
+          describe=`git describe --tags --always`
+          echo "describe=$describe" >> $GITHUB_ENV
+
+      - name: Setup MSBuild.exe
+        uses: microsoft/setup-msbuild@v2
+        with:
+          msbuild-architecture: ${{ matrix.architecture }}
+
+      - name: Restore NuGet Packages
+        run: nuget restore "PCL2-Log-Viewer\PCL2-Log-Viewer.csproj" -PackagesDirectory "packages"
+
+      - name: Replace Strings
+        run: |
+          (gc "PCL2-Log-Viewer\Properties\R.resx") -replace 'COMMIT_HASH', '${{ github.sha }}' | Out-File "PCL2-Log-Viewer\Properties\R.resx"
+
+      - name: Build
+        run: |
+          chcp 65001
+          $PSDefaultParameterValues['Out-File:Encoding'] = 'utf8'
+          [Console]::OutputEncoding = [System.Text.Encoding]::UTF8
+          msbuild "PCL2-Log-Viewer\PCL2-Log-Viewer.csproj" -p:Configuration=${{ matrix.configuration }} -p:Platform=${{ matrix.architecture }}
+
+      - name: Upload a Build Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.configuration }}-${{ matrix.architecture }}-${{ env.describe }}
+          path: PCL2-Log-Viewer\obj\${{ matrix.architecture }}\${{ matrix.configuration }}\PCL2_Log_Viewer.exe
