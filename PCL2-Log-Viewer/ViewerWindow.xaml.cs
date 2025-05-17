@@ -22,12 +22,14 @@ public partial class ViewerWindow
     private readonly ILogStream _stream;
     private readonly ILogParser _parser;
     private readonly string _title;
+    
+    public string Identifier => _stream.Identifier;
 
     public ViewerWindow(ILogStream stream, ILogParser parser)
     {
         _stream = stream;
         _parser = parser;
-        _title = $"{_stream.Identifier} - {R.AppTitle}";
+        _title = $"{Identifier} - {R.AppTitle}";
         InitializeComponent();
     }
 
@@ -116,6 +118,12 @@ public partial class ViewerWindow
         }));
     }
 
+    protected override void OnActivated(EventArgs e)
+    {
+        base.OnActivated(e);
+        App.ActiveIdentifier = Identifier;
+    }
+
     protected override void OnClosing(CancelEventArgs e)
     {
         base.OnClosing(e);
@@ -130,7 +138,7 @@ public partial class ViewerWindow
 
     protected override void OnClosed(EventArgs e)
     {
-        App.RemoveViewer(_stream.Identifier);
+        App.RemoveViewer(Identifier);
         _stream.Close();
         base.OnClosed(e);
     }

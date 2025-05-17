@@ -16,6 +16,10 @@
         WindowStartupLocation="CenterScreen"
         MinHeight="600" MinWidth="900" Height="600" Width="900">
     
+    <Window.Resources>
+        <local:MultiValueEqualityConverter x:Key="EqualityConverter"/>
+    </Window.Resources>
+    
     <DockPanel Background="{StaticResource Background}">
         
         <!-- menu bar -->
@@ -48,7 +52,23 @@
             
             <MenuItem Header="{x:Static prop:R.MenuWindow}">
                 <MenuItem Header="{x:Static prop:R.OptionShowMainWindow}" Click="MenuItemShowMainWindow_OnClick"/>
-                <MenuItem Header="{x:Static prop:R.OptionAllWindows}" Click="MenuItemAllWindows_OnClick" ItemsSource="{Binding Source={x:Static local:App.ViewerIdentifiers}}"/>
+                <MenuItem Header="{x:Static prop:R.OptionAllWindows}" Click="MenuItemAllWindows_OnClick" ItemsSource="{Binding Source={x:Static local:App.ViewerIdentifiers}}">
+                    <MenuItem.ItemContainerStyle>
+                        <Style TargetType="MenuItem" BasedOn="{StaticResource {x:Type MenuItem}}">
+                            <Style.Triggers>
+                                <DataTrigger Value="True">
+                                    <DataTrigger.Binding>
+                                        <MultiBinding Converter="{StaticResource EqualityConverter}">
+                                            <Binding/>
+                                            <Binding RelativeSource="{RelativeSource AncestorType=local:ViewerWindow}" Path="Identifier"/>
+                                        </MultiBinding>
+                                    </DataTrigger.Binding>
+                                    <Setter Property="IsChecked" Value="True"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </MenuItem.ItemContainerStyle>
+                </MenuItem>
                 <Separator/>
                 <MenuItem Header="{x:Static prop:R.OptionWindowMaximize}" Click="MenuItemMaximize_OnClick"/>
                 <MenuItem Header="{x:Static prop:R.OptionWindowMinimize}" Click="MenuItemMinimize_OnClick"/>

@@ -93,6 +93,7 @@
     <Compile Include="ILogStream.cs" />
     <Compile Include="ILogParser.cs" />
     <Compile Include="LogItem.cs" />
+    <Compile Include="MultiValueEqualityConverter.cs" />
     <Compile Include="System.Runtime.CompilerServices.cs" />
     <Compile Include="ViewerWindow.xaml.cs">
       <DependentUpon>ViewerWindow.xaml</DependentUpon>

@@ -60,7 +60,10 @@ public partial class App
 
     private static readonly Dictionary<string, ViewerWindow> Viewers = new();
     public static readonly ObservableCollection<string> ViewerIdentifiers = new();
+    
     public static Dictionary<string, ViewerWindow>.ValueCollection ViewerWindows => Viewers.Values;
+    
+    public static string? ActiveIdentifier { get; internal set; }
     
     internal static void RemoveViewer(string identifier)
     {
