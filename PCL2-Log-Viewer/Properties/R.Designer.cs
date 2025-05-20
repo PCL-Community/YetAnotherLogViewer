@@ -481,5 +481,14 @@ namespace LogViewer.Properties {
                 return ResourceManager.GetString("ToggleAutoScroll", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;Default&gt;.
+        /// </summary>
+        public static string ToggleDefaultContent {
+            get {
+                return ResourceManager.GetString("ToggleDefaultContent", resourceCulture);
+            }
+        }
     }
 }

@@ -143,4 +143,7 @@
     <data name="ButtonScrollToTop" xml:space="preserve">
         <value>滚动到顶部</value>
     </data>
+    <data name="ToggleDefaultContent" xml:space="preserve">
+        <value>&lt;默认&gt;</value>
+    </data>
 </root>

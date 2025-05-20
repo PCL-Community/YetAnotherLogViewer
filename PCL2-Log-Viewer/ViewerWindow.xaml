@@ -94,9 +94,9 @@
                 <local:BorderCard DockPanel.Dock="Top">
                     <StackPanel>
                         
-                        <Label Content="{x:Static prop:R.HeaderShowModules}" FontWeight="Bold"/>
+                        <Label Content="{x:Static prop:R.HeaderLogLevel}" FontWeight="Bold"/>
                         
-                        <!-- TODO localization -->
+                        <ToggleButton Content="{x:Static prop:R.ToggleDefaultContent}" Tag="Null" IsChecked="True" Foreground="{StaticResource TraceBrush}"/>
                         <ToggleButton Content="Trace" Tag="Trace" IsChecked="True" Foreground="{StaticResource TraceBrush}"/>
                         <ToggleButton Content="Dev" Tag="Dev" IsChecked="True" Foreground="{StaticResource DevBrush}"/>
                         <ToggleButton Content="Debug" Tag="Debug" IsChecked="True" Foreground="{StaticResource DebugBrush}"/>
@@ -220,6 +220,7 @@
                                             <Border.Style>
                                                 <Style TargetType="local:BorderTag" BasedOn="{StaticResource {x:Type local:BorderTag}}">
                                                     <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding}" Value="Null"><Setter Property="Visibility" Value="Collapsed"/></DataTrigger>
                                                         <DataTrigger Binding="{Binding}" Value="Trace"><Setter Property="Background" Value="{StaticResource TraceBrushOpacity}"/></DataTrigger>
                                                         <DataTrigger Binding="{Binding}" Value="Dev"><Setter Property="Background" Value="{StaticResource DevBrushOpacity}"/></DataTrigger>
                                                         <DataTrigger Binding="{Binding}" Value="Debug"><Setter Property="Background" Value="{StaticResource DebugBrushOpacity}"/></DataTrigger>

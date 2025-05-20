@@ -84,7 +84,7 @@ public class DefaultLogParser : ILogParser
             {
                 var str = content.ToString();
                 if (level == null && PatternErrorOrFailed.IsMatch(str)) level = "Error";
-                itemCallback(new LogItem(time, module ?? "Default", level ?? "Debug", str));
+                itemCallback(new LogItem(time, module ?? "Default", level ?? "Null", str));
                 module = null;
                 level = null;
                 content.Clear();
