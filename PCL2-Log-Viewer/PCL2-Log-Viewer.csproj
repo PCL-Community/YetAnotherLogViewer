@@ -95,6 +95,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="BorderCard.cs" />
+    <Compile Include="BorderTag.cs" />
     <Compile Include="DefaultLogParser.cs" />
     <Compile Include="FileLogStream.cs" />
     <Compile Include="ILogStream.cs" />
@@ -105,8 +107,6 @@
     <Compile Include="ViewerWindow.xaml.cs">
       <DependentUpon>ViewerWindow.xaml</DependentUpon>
     </Compile>
-    <Page Include="BorderCard.xaml" />
-    <Page Include="BorderTag.xaml" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
