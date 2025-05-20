@@ -99,14 +99,13 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="BorderCard.cs" />
-    <Compile Include="BorderTag.cs" />
+    <Compile Include="StyledControls.cs" />
     <Compile Include="DefaultLogParser.cs" />
     <Compile Include="FileLogStream.cs" />
     <Compile Include="ILogStream.cs" />
     <Compile Include="ILogParser.cs" />
     <Compile Include="LogItem.cs" />
-    <Compile Include="MultiValueEqualityConverter.cs" />
+    <Compile Include="BindingConverters.cs" />
     <Compile Include="SimpleCommand.cs" />
     <Compile Include="System.Runtime.CompilerServices.cs" />
     <Compile Include="ViewerWindow.xaml.cs">
