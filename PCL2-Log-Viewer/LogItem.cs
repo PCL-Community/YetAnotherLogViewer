@@ -12,9 +12,5 @@ public record LogItem(string Time, string Module, string Level, string Content)
         return Module == another.Module && Level == another.Level && Content == another.Content;
     }
 
-    public static readonly HashSet<string> Levels = new(new[]
-    {
-        "Trace", "Dev", "Debug", "Info",
-        "Notice", "Warning", "Error"
-    });
+    public static readonly HashSet<string> Levels = ["Trace", "Dev", "Debug", "Info", "Notice", "Warning", "Error"];
 }

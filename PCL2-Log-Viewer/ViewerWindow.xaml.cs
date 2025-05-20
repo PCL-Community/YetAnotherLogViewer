@@ -5,6 +5,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
+using System.Windows.Data;
 using Microsoft.Win32;
 using PropertyChanged;
 using MessageBox = AdonisUI.Controls.MessageBox;
@@ -41,6 +43,10 @@ public partial class ViewerWindow
     public ViewerWindow(ILogStream stream) : this(stream, new DefaultLogParser()) {}
 
     private ScrollViewer? ScrollViewerLogs => LogContainer.Template.FindName("PART_ScrollViewerLogs", LogContainer) as ScrollViewer;
+
+    private ICollectionView? LogCollectionView => CollectionViewSource.GetDefaultView(LogContainer.ItemsSource);
+
+    private ICollectionView? ModuleTogglesCollectionView => CollectionViewSource.GetDefaultView(ModuleTogglesContainer.ItemsSource);
     
     private bool _saved = true;
     private bool _saving = false;
@@ -54,6 +60,11 @@ public partial class ViewerWindow
         _saved = false;
         Title = $"* {_title}";
         MenuItemSave.IsEnabled = true;
+    }
+
+    private void ProcessViewRefresh()
+    {
+        Dispatcher.BeginInvoke(() => LogCollectionView?.Refresh());
     }
 
     private void Save(string path)
@@ -109,6 +120,13 @@ public partial class ViewerWindow
         Title = _title;
         MenuItemSaveCopy.IsEnabled = _stream.CanSave;
         _stream.Reload();
+        LogCollectionView!.Filter = o =>
+        {
+            if (o is not LogItem item) return false;
+            var levelShow = Resources[$"ShowLevel{item.Level}"] as bool?;
+            var levelModule = Resources[$"ShowModule{item.Module}"] as bool?;
+            return levelShow == true && levelModule == true;
+        };
         _parser.BeginParse(_stream, this, item => Dispatcher.BeginInvoke(() =>
         {
             LogItem tmp;
@@ -120,10 +138,14 @@ public partial class ViewerWindow
                 Logs.RemoveAt(count - 1);
                 item = tmp;
             }
+            var module = item.Module;
+            if (!Modules.Contains(module))
+            {
+                Resources[$"ShowModule{module}"] = true;
+                Modules.Add(module);
+            }
             Logs.Add(item);
             ProcessContentChanged();
-            if (Modules.Contains(item.Module)) return;
-            Modules.Add(item.Module);
         }));
     }
 
@@ -165,4 +187,30 @@ public partial class ViewerWindow
     private void MenuItemSave_OnClick(object sender, RoutedEventArgs e) { ProcessSave(); }
 
     private void MenuItemSaveCopy_OnClick(object sender, RoutedEventArgs e) { SaveCopy(); }
+
+    private void ToggleButtonLevels_OnHandler(object sender, RoutedEventArgs e)
+    {
+        if (e.OriginalSource is not ToggleButton button) return;
+        Resources[$"ShowLevel{button.Tag}"] = button.IsChecked;
+        ProcessViewRefresh();
+    }
+
+    private void ToggleButtonModules_OnClick(object sender, RoutedEventArgs e)
+    {
+        if (e.OriginalSource is not ToggleButton button) return;
+        Resources[$"ShowModule{button.Tag}"] = button.IsChecked;
+        ProcessViewRefresh();
+    }
+
+    private void MenuItemResetFilters_OnClick(object sender, RoutedEventArgs e)
+    {
+        if (sender is not MenuItem { Tag: string parentTag } || e.OriginalSource is not MenuItem { Tag: string tag }) return;
+        var pfx = parentTag == "L" ? "Level" : "Module";
+        pfx = $"Show{pfx}";
+        var value = tag == "S";
+        foreach (var k in Resources.Keys) if (k is string s && s.StartsWith(pfx)) Resources[k] = value;
+        if (parentTag == "L") { foreach (UIElement child in LevelTogglesContainer.Children) if (child is ToggleButton button) button.IsChecked = value; }
+        else ModuleTogglesCollectionView?.Refresh();
+        ProcessViewRefresh();
+    }
 }

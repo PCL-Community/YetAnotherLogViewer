@@ -6,19 +6,37 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:system="clr-namespace:System;assembly=mscorlib"
         xmlns:ui="clr-namespace:AdonisUI;assembly=AdonisUI"
-        xmlns:ct="clr-namespace:AdonisUI.Controls;assembly=AdonisUI"
-        xmlns:ext="clr-namespace:AdonisUI.Extensions;assembly=AdonisUI"
+        xmlns:uiCt="clr-namespace:AdonisUI.Controls;assembly=AdonisUI"
+        xmlns:uiExt="clr-namespace:AdonisUI.Extensions;assembly=AdonisUI"
         xmlns:local="clr-namespace:LogViewer"
         xmlns:prop="clr-namespace:LogViewer.Properties"
         mc:Ignorable="d"
-        ext:CursorSpotlightExtension.MaxBlurRadius="64"
-        ext:CursorSpotlightExtension.RelativeSpotlightSize="0.5"
+        uiExt:CursorSpotlightExtension.MaxBlurRadius="64"
+        uiExt:CursorSpotlightExtension.RelativeSpotlightSize="0.5"
         DataContext="{Binding RelativeSource={RelativeSource Self}}"
         Title="{x:Static prop:R.TextLoading}"
         WindowStartupLocation="CenterScreen"
         MinHeight="600" MinWidth="900" Height="600" Width="900">
     
     <Window.Resources>
+        
+        <local:ItemExistenceConverter x:Key="LevelHasBackgroundConverter">
+            <system:String>Notice</system:String>
+            <system:String>Warning</system:String>
+            <system:String>Error</system:String>
+        </local:ItemExistenceConverter>
+        <local:ResourceKeyConverter x:Key="ShowLevelKeyConverter" Prefix="ShowLevel"/>
+        <local:ResourceKeyConverter x:Key="ShowModuleKeyConverter" Prefix="ShowModule"/>
+        
+        <system:Boolean x:Key="ShowLevelNull">True</system:Boolean>
+        <system:Boolean x:Key="ShowLevelTrace">True</system:Boolean>
+        <system:Boolean x:Key="ShowLevelDev">True</system:Boolean>
+        <system:Boolean x:Key="ShowLevelDebug">True</system:Boolean>
+        <system:Boolean x:Key="ShowLevelInfo">True</system:Boolean>
+        <system:Boolean x:Key="ShowLevelNotice">True</system:Boolean>
+        <system:Boolean x:Key="ShowLevelWarning">True</system:Boolean>
+        <system:Boolean x:Key="ShowLevelError">True</system:Boolean>
+        
     </Window.Resources>
     
     <DockPanel Background="{StaticResource Background}">
@@ -52,6 +70,15 @@
                 <Separator/>
                 <MenuItem Header="{x:Static prop:R.OptionFind}"/>
                 <MenuItem Header="{x:Static prop:R.OptionReplace}"/>
+                <Separator/>
+                <MenuItem Header="{x:Static prop:R.HeaderLogLevel}" Tag="L" Click="MenuItemResetFilters_OnClick">
+                    <MenuItem Header="{x:Static prop:R.OptionShowAll}" Tag="S"/>
+                    <MenuItem Header="{x:Static prop:R.OptionHideAll}" Tag="H"/>
+                </MenuItem>
+                <MenuItem Header="{x:Static prop:R.HeaderShowModules}" Tag="M" Click="MenuItemResetFilters_OnClick">
+                    <MenuItem Header="{x:Static prop:R.OptionShowAll}" Tag="S"/>
+                    <MenuItem Header="{x:Static prop:R.OptionHideAll}" Tag="H"/>
+                </MenuItem>
             </MenuItem>
             
             <MenuItem Header="{x:Static prop:R.MenuWindow}">
@@ -93,23 +120,27 @@
             <DockPanel DockPanel.Dock="Left" Width="180">
                 
                 <local:BorderCard DockPanel.Dock="Top">
-                    <StackPanel>
+                    <StackPanel x:Name="LevelTogglesContainer">
                         
                         <StackPanel.Resources>
                             <Style TargetType="ToggleButton" BasedOn="{StaticResource {x:Type ToggleButton}}">
+                                <Setter Property="Content" Value="{Binding Tag, RelativeSource={RelativeSource Self}}"/>
+                                <Setter Property="Foreground" Value="{local:ResourceBinding Tag, RelativeSource={RelativeSource Self}, Converter={StaticResource BrushKeyConverter}}"/>
+                                <Setter Property="IsChecked" Value="{local:ResourceBinding Tag, RelativeSource={RelativeSource Self}, Converter={StaticResource ShowLevelKeyConverter}}"/>
+                                <EventSetter Event="Click" Handler="ToggleButtonLevels_OnHandler"/>
                             </Style>
                         </StackPanel.Resources>
                         
                         <Label Content="{x:Static prop:R.HeaderLogLevel}" FontWeight="Bold"/>
                         
-                        <ToggleButton Content="{x:Static prop:R.ToggleDefaultContent}" Tag="Null" IsChecked="True" Foreground="{StaticResource TraceBrush}"/>
-                        <ToggleButton Content="Trace" Tag="Trace" IsChecked="True" Foreground="{StaticResource TraceBrush}"/>
-                        <ToggleButton Content="Dev" Tag="Dev" IsChecked="True" Foreground="{StaticResource DevBrush}"/>
-                        <ToggleButton Content="Debug" Tag="Debug" IsChecked="True" Foreground="{StaticResource DebugBrush}"/>
-                        <ToggleButton Content="Info" Tag="Info" IsChecked="True" Foreground="{StaticResource InfoBrush}"/>
-                        <ToggleButton Content="Notice" Tag="Notice" IsChecked="True" Foreground="{StaticResource NoticeBrush}"/>
-                        <ToggleButton Content="Warning" Tag="Warning" IsChecked="True" Foreground="{StaticResource WarningBrush}"/>
-                        <ToggleButton Content="Error" Tag="Error" IsChecked="True" Foreground="{StaticResource ErrorBrush}"/>
+                        <ToggleButton Tag="Null" Content="{x:Static prop:R.ToggleDefaultContent}"/>
+                        <ToggleButton Tag="Trace"/>
+                        <ToggleButton Tag="Dev"/>
+                        <ToggleButton Tag="Debug"/>
+                        <ToggleButton Tag="Info"/>
+                        <ToggleButton Tag="Notice"/>
+                        <ToggleButton Tag="Warning"/>
+                        <ToggleButton Tag="Error"/>
                         
                     </StackPanel>
                 </local:BorderCard>
@@ -119,7 +150,7 @@
                         
                         <Label DockPanel.Dock="Top" Content="{x:Static prop:R.HeaderShowModules}" FontWeight="Bold"/>
                         
-                        <ItemsControl ItemsSource="{Binding Modules}" ScrollViewer.CanContentScroll="True" VirtualizingPanel.ScrollUnit="Pixel">
+                        <ItemsControl x:Name="ModuleTogglesContainer" ItemsSource="{Binding Modules}" ScrollViewer.CanContentScroll="True" VirtualizingPanel.ScrollUnit="Pixel">
                             
                             <ItemsControl.Template>
                                 <ControlTemplate TargetType="ItemsControl">
@@ -137,7 +168,7 @@
                             
                             <ItemsControl.ItemTemplate>
                                 <DataTemplate>
-                                    <ToggleButton Content="{Binding}" Tag="{Binding}" IsChecked="True"/>
+                                    <ToggleButton Content="{Binding}" Tag="{Binding}" IsChecked="{local:ResourceBinding Converter={StaticResource ShowModuleKeyConverter}}" Click="ToggleButtonModules_OnClick"/>
                                 </DataTemplate>
                             </ItemsControl.ItemTemplate>
                             
@@ -154,21 +185,21 @@
                 <local:BorderCard DockPanel.Dock="Bottom">
                     <StackPanel Orientation="Horizontal" Margin="{StaticResource GlobalMargin}">
                         
-                        <ct:SplitButton MinWidth="120" HorizontalContentAlignment="Center" Command="{Binding ToggleEnableAutoScroll}">
+                        <uiCt:SplitButton MinWidth="120" HorizontalContentAlignment="Center" Command="{Binding ToggleEnableAutoScroll}">
                             
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock Text="&#x2713;" Visibility="{Binding EnableAutoScroll, Converter={StaticResource BooleanToVisibilityConverter}}"/>
                                 <TextBlock Text="{x:Static prop:R.ToggleAutoScroll}"/>
                             </StackPanel>
                             
-                            <ct:SplitButton.SplitMenu>
+                            <uiCt:SplitButton.SplitMenu>
                                 <ContextMenu>
                                     <MenuItem Header="{x:Static prop:R.ButtonScrollToTop}" Command="{Binding ScrollToTop}"/>
                                     <MenuItem Header="{x:Static prop:R.ButtonScrollToBottom}" Command="{Binding ScrollToBottom}"/>
                                 </ContextMenu>
-                            </ct:SplitButton.SplitMenu>
+                            </uiCt:SplitButton.SplitMenu>
                             
-                        </ct:SplitButton>
+                        </uiCt:SplitButton>
                         
                     </StackPanel>
                 </local:BorderCard>
@@ -194,18 +225,10 @@
                             <DataTemplate>
                                 <Border Padding="2" Margin="0,1" CornerRadius="4">
                                     
-                                    <Border.Resources>
-                                        <local:ItemExistenceConverter x:Key="LevelConverter">
-                                            <system:String>Notice</system:String>
-                                            <system:String>Warning</system:String>
-                                            <system:String>Error</system:String>
-                                        </local:ItemExistenceConverter>
-                                    </Border.Resources>
-                                    
                                     <Border.Style>
                                         <Style TargetType="Border">
                                             <Style.Triggers>
-                                                <DataTrigger Binding="{Binding Level, Converter={StaticResource LevelConverter}}" Value="True">
+                                                <DataTrigger Binding="{Binding Level, Converter={StaticResource LevelHasBackgroundConverter}}" Value="True">
                                                     <Setter Property="Background" Value="{local:ResourceBinding Level, Converter={StaticResource BrushOpacityKeyConverter}}"/>
                                                 </DataTrigger>
                                             </Style.Triggers>

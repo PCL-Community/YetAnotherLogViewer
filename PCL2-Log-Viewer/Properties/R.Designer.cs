@@ -267,6 +267,15 @@ namespace LogViewer.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to _Hide All.
+        /// </summary>
+        public static string OptionHideAll {
+            get {
+                return ResourceManager.GetString("OptionHideAll", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to _Open....
         /// </summary>
         public static string OptionOpen {
@@ -362,6 +371,15 @@ namespace LogViewer.Properties {
         public static string OptionSettings {
             get {
                 return ResourceManager.GetString("OptionSettings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to _Show All.
+        /// </summary>
+        public static string OptionShowAll {
+            get {
+                return ResourceManager.GetString("OptionShowAll", resourceCulture);
             }
         }
         

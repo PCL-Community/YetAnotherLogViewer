@@ -146,4 +146,10 @@
     <data name="ToggleDefaultContent" xml:space="preserve">
         <value>&lt;默认&gt;</value>
     </data>
+    <data name="OptionHideAll" xml:space="preserve">
+        <value>隐藏全部 (_H)</value>
+    </data>
+    <data name="OptionShowAll" xml:space="preserve">
+        <value>显示全部 (_S)</value>
+    </data>
 </root>

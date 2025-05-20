@@ -258,4 +258,10 @@
   <data name="ToggleDefaultContent" xml:space="preserve">
     <value>&lt;Default&gt;</value>
   </data>
+  <data name="OptionShowAll" xml:space="preserve">
+    <value>_Show All</value>
+  </data>
+  <data name="OptionHideAll" xml:space="preserve">
+    <value>_Hide All</value>
+  </data>
 </root>
