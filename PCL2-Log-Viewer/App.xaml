@@ -47,6 +47,7 @@
             <Color x:Key="ErrorLevelColor" >Red</Color>
             <system:Double x:Key="LevelOpacity">0.1</system:Double>
             
+            <SolidColorBrush x:Key="NullBrush" Color="{StaticResource TraceLevelColor}"/>
             <SolidColorBrush x:Key="TraceBrush" Color="{StaticResource TraceLevelColor}"/>
             <SolidColorBrush x:Key="DevBrush" Color="{StaticResource DevLevelColor}"/>
             <SolidColorBrush x:Key="DebugBrush" Color="{StaticResource DebugLevelColor}"/>
@@ -54,6 +55,7 @@
             <SolidColorBrush x:Key="NoticeBrush" Color="{StaticResource NoticeLevelColor}"/>
             <SolidColorBrush x:Key="WarningBrush" Color="{StaticResource WarningLevelColor}"/>
             <SolidColorBrush x:Key="ErrorBrush" Color="{StaticResource ErrorLevelColor}"/>
+            <SolidColorBrush x:Key="NullBrushOpacity" Color="{StaticResource TraceLevelColor}" Opacity="{StaticResource LevelOpacity}"/>
             <SolidColorBrush x:Key="TraceBrushOpacity" Color="{StaticResource TraceLevelColor}" Opacity="{StaticResource LevelOpacity}"/>
             <SolidColorBrush x:Key="DevBrushOpacity" Color="{StaticResource DevLevelColor}" Opacity="{StaticResource LevelOpacity}"/>
             <SolidColorBrush x:Key="DebugBrushOpacity" Color="{StaticResource DebugLevelColor}" Opacity="{StaticResource LevelOpacity}"/>
@@ -98,6 +100,8 @@
             <!-- binding converters -->
             <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
             <local:MultiValueEqualityConverter x:Key="EqualityConverter"/>
+            <local:ResourceKeyConverter x:Key="BrushKeyConverter" Suffix="Brush"/>
+            <local:ResourceKeyConverter x:Key="BrushOpacityKeyConverter" Suffix="BrushOpacity"/>
             
         </ResourceDictionary>
     </Application.Resources>

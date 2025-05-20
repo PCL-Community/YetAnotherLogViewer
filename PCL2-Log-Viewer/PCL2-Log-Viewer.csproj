@@ -99,6 +99,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="MarkupExtensions.cs" />
     <Compile Include="StyledControls.cs" />
     <Compile Include="DefaultLogParser.cs" />
     <Compile Include="FileLogStream.cs" />
