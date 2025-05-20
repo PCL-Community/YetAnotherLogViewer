@@ -15,7 +15,7 @@ namespace LogViewer;
 
 public partial class ViewerWindow
 {
-    public ObservableCollection<string> Modules { get; } = new();
+    public ObservableCollection<string> Modules { get; } = [];
     
     public ObservableCollection<LogItem> Logs { get; } = new();
     

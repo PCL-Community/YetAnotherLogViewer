@@ -59,7 +59,7 @@ public partial class App
     #region Viewer Window Management
 
     private static readonly Dictionary<string, ViewerWindow> Viewers = new();
-    public static readonly ObservableCollection<string> ViewerIdentifiers = new();
+    public static readonly ObservableCollection<string> ViewerIdentifiers = [];
     
     public static Dictionary<string, ViewerWindow>.ValueCollection ViewerWindows => Viewers.Values;
     
