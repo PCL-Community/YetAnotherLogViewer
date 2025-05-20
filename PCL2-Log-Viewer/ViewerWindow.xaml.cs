@@ -4,7 +4,9 @@ using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 using Microsoft.Win32;
+using PropertyChanged;
 using MessageBox = AdonisUI.Controls.MessageBox;
 using MessageBoxButton = AdonisUI.Controls.MessageBoxButton;
 using MessageBoxImage = AdonisUI.Controls.MessageBoxImage;
@@ -13,11 +15,14 @@ using R = LogViewer.Properties.R;
 
 namespace LogViewer;
 
+[AddINotifyPropertyChangedInterface]
 public partial class ViewerWindow
 {
     public ObservableCollection<string> Modules { get; } = [];
     
-    public ObservableCollection<LogItem> Logs { get; } = new();
+    public ObservableCollection<LogItem> Logs { get; } = [];
+    
+    public bool EnableAutoScroll { get; set; } = false;
     
     private readonly ILogStream _stream;
     private readonly ILogParser _parser;
@@ -34,6 +39,8 @@ public partial class ViewerWindow
     }
 
     public ViewerWindow(ILogStream stream) : this(stream, new DefaultLogParser()) {}
+
+    private ScrollViewer? ScrollViewerLogs => LogContainer.Template.FindName("PART_ScrollViewerLogs", LogContainer) as ScrollViewer;
     
     private bool _saved = true;
     private bool _saving = false;
@@ -41,6 +48,8 @@ public partial class ViewerWindow
     
     private void ProcessContentChanged()
     {
+        if (EnableAutoScroll) ScrollToBottom.Execute();
+        // update save state
         if (!_stream.CanSave) return;
         _saved = false;
         Title = $"* {_title}";
@@ -142,6 +151,16 @@ public partial class ViewerWindow
         _stream.Close();
         base.OnClosed(e);
     }
+
+    public SimpleCommand ToggleEnableAutoScroll => new(_ =>
+    {
+        EnableAutoScroll = !EnableAutoScroll;
+        if (EnableAutoScroll) ScrollToBottom.Execute();
+    });
+
+    public SimpleCommand ScrollToTop => new(_ => ScrollViewerLogs?.ScrollToTop());
+
+    public SimpleCommand ScrollToBottom => new(_ => ScrollViewerLogs?.ScrollToBottom());
 
     private void MenuItemSave_OnClick(object sender, RoutedEventArgs e) { ProcessSave(); }
 

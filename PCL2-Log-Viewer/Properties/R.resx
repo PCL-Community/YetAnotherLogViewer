@@ -228,13 +228,31 @@
   <data name="TextSaveFile" xml:space="preserve">
     <value>Save as</value>
   </data>
-  <data name="SettingLogLevel" xml:space="preserve">
+  <data name="HeaderLogLevel" xml:space="preserve">
     <value>Log Level</value>
   </data>
-  <data name="SettingShowModules" xml:space="preserve">
+  <data name="HeaderShowModules" xml:space="preserve">
     <value>Modules</value>
   </data>
   <data name="AppCommit" xml:space="preserve">
     <value>COMMIT_HASH</value>
+  </data>
+  <data name="ToggleAutoScroll" xml:space="preserve">
+    <value>Auto scroll</value>
+  </data>
+  <data name="OptionScrollToTop" xml:space="preserve">
+    <value>Scroll to _Top</value>
+  </data>
+  <data name="OptionScrollToBottom" xml:space="preserve">
+    <value>Scroll to _Bottom</value>
+  </data>
+  <data name="AppName" xml:space="preserve">
+    <value>Yet Another Log Viewer</value>
+  </data>
+  <data name="ButtonScrollToTop" xml:space="preserve">
+    <value>Scroll to top</value>
+  </data>
+  <data name="ButtonScrollToBottom" xml:space="preserve">
+    <value>Scroll to bottom</value>
   </data>
 </root>

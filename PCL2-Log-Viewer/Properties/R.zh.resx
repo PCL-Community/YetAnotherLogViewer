@@ -122,10 +122,25 @@
     <data name="TextSaveFile" xml:space="preserve">
         <value>是否保存为</value>
     </data>
-    <data name="SettingLogLevel" xml:space="preserve">
+    <data name="HeaderLogLevel" xml:space="preserve">
         <value>日志级别</value>
     </data>
-    <data name="SettingShowModules" xml:space="preserve">
+    <data name="HeaderShowModules" xml:space="preserve">
         <value>显示模块</value>
+    </data>
+    <data name="ToggleAutoScroll" xml:space="preserve">
+        <value>自动滚动</value>
+    </data>
+    <data name="OptionScrollToTop" xml:space="preserve">
+        <value>滚动到顶部 (_T)</value>
+    </data>
+    <data name="OptionScrollToBottom" xml:space="preserve">
+        <value>滚动到底部 (_B)</value>
+    </data>
+    <data name="ButtonScrollToBottom" xml:space="preserve">
+        <value>滚动到底部</value>
+    </data>
+    <data name="ButtonScrollToTop" xml:space="preserve">
+        <value>滚动到顶部</value>
     </data>
 </root>

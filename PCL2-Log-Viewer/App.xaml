@@ -75,7 +75,7 @@
             </Style>
 
             <Style TargetType="TextBlock">
-                <Setter Property="Margin" Value="0,2"/>
+                <Setter Property="Margin" Value="2,2"/>
             </Style>
             
             <Style TargetType="Label">
@@ -94,6 +94,10 @@
                 <Setter Property="Padding" Value="2,0"/>
                 <Setter Property="CornerRadius" Value="4"/>
             </Style>
+            
+            <!-- binding converters -->
+            <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+            <local:MultiValueEqualityConverter x:Key="EqualityConverter"/>
             
         </ResourceDictionary>
     </Application.Resources>

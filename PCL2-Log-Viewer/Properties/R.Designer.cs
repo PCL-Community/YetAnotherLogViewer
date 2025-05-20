@@ -69,6 +69,15 @@ namespace LogViewer.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Yet Another Log Viewer.
+        /// </summary>
+        public static string AppName {
+            get {
+                return ResourceManager.GetString("AppName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to https://github.com/PCL-Community/YetAnotherLogViewer.
         /// </summary>
         public static string AppRepository {
@@ -92,6 +101,24 @@ namespace LogViewer.Properties {
         public static string ButtonOpenFile {
             get {
                 return ResourceManager.GetString("ButtonOpenFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Scroll to bottom.
+        /// </summary>
+        public static string ButtonScrollToBottom {
+            get {
+                return ResourceManager.GetString("ButtonScrollToBottom", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Scroll to top.
+        /// </summary>
+        public static string ButtonScrollToTop {
+            get {
+                return ResourceManager.GetString("ButtonScrollToTop", resourceCulture);
             }
         }
         
@@ -128,6 +155,24 @@ namespace LogViewer.Properties {
         public static string ErrorNoDefaultBrowser {
             get {
                 return ResourceManager.GetString("ErrorNoDefaultBrowser", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Log Level.
+        /// </summary>
+        public static string HeaderLogLevel {
+            get {
+                return ResourceManager.GetString("HeaderLogLevel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Modules.
+        /// </summary>
+        public static string HeaderShowModules {
+            get {
+                return ResourceManager.GetString("HeaderShowModules", resourceCulture);
             }
         }
         
@@ -285,6 +330,24 @@ namespace LogViewer.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Scroll to _Bottom.
+        /// </summary>
+        public static string OptionScrollToBottom {
+            get {
+                return ResourceManager.GetString("OptionScrollToBottom", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Scroll to _Top.
+        /// </summary>
+        public static string OptionScrollToTop {
+            get {
+                return ResourceManager.GetString("OptionScrollToTop", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Select _All.
         /// </summary>
         public static string OptionSelectAll {
@@ -366,24 +429,6 @@ namespace LogViewer.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Log Level.
-        /// </summary>
-        public static string SettingLogLevel {
-            get {
-                return ResourceManager.GetString("SettingLogLevel", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Modules.
-        /// </summary>
-        public static string SettingShowModules {
-            get {
-                return ResourceManager.GetString("SettingShowModules", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Exception.
         /// </summary>
         public static string TextExceptionThrown {
@@ -425,6 +470,15 @@ namespace LogViewer.Properties {
         public static string TextSaveFile {
             get {
                 return ResourceManager.GetString("TextSaveFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Auto scroll.
+        /// </summary>
+        public static string ToggleAutoScroll {
+            get {
+                return ResourceManager.GetString("ToggleAutoScroll", resourceCulture);
             }
         }
     }

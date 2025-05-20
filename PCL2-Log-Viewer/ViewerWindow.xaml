@@ -5,6 +5,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:ui="clr-namespace:AdonisUI;assembly=AdonisUI"
+        xmlns:ct="clr-namespace:AdonisUI.Controls;assembly=AdonisUI"
         xmlns:ext="clr-namespace:AdonisUI.Extensions;assembly=AdonisUI"
         xmlns:local="clr-namespace:LogViewer"
         xmlns:prop="clr-namespace:LogViewer.Properties"
@@ -17,7 +18,6 @@
         MinHeight="600" MinWidth="900" Height="600" Width="900">
     
     <Window.Resources>
-        <local:MultiValueEqualityConverter x:Key="EqualityConverter"/>
     </Window.Resources>
     
     <DockPanel Background="{StaticResource Background}">
@@ -45,6 +45,9 @@
             <MenuItem Header="{x:Static prop:R.MenuEdit}">
                 <MenuItem Header="{x:Static prop:R.OptionSelectAll}"/>
                 <MenuItem Header="{x:Static prop:R.OptionCopy}"/>
+                <Separator/>
+                <MenuItem Header="{x:Static prop:R.OptionScrollToTop}" Command="{Binding ScrollToTop}"/>
+                <MenuItem Header="{x:Static prop:R.OptionScrollToBottom}" Command="{Binding ScrollToBottom}"/>
                 <Separator/>
                 <MenuItem Header="{x:Static prop:R.OptionFind}"/>
                 <MenuItem Header="{x:Static prop:R.OptionReplace}"/>
@@ -91,7 +94,7 @@
                 <local:BorderCard DockPanel.Dock="Top">
                     <StackPanel>
                         
-                        <Label Content="{x:Static prop:R.SettingLogLevel}" FontWeight="Bold"/>
+                        <Label Content="{x:Static prop:R.HeaderShowModules}" FontWeight="Bold"/>
                         
                         <!-- TODO localization -->
                         <ToggleButton Content="Trace" Tag="Trace" IsChecked="True" Foreground="{StaticResource TraceBrush}"/>
@@ -108,7 +111,7 @@
                 <local:BorderCard>
                     <DockPanel>
                         
-                        <Label DockPanel.Dock="Top" Content="{x:Static prop:R.SettingShowModules}" FontWeight="Bold"/>
+                        <Label DockPanel.Dock="Top" Content="{x:Static prop:R.HeaderShowModules}" FontWeight="Bold"/>
                         
                         <ItemsControl ItemsSource="{Binding Modules}" ScrollViewer.CanContentScroll="True" VirtualizingPanel.ScrollUnit="Pixel">
                             
@@ -142,16 +145,34 @@
             <!-- right side -->
             <DockPanel>
                 
-                <local:BorderCard DockPanel.Dock="Bottom" Height="50">
-                    <!-- TODO -->
+                <local:BorderCard DockPanel.Dock="Bottom">
+                    <StackPanel Orientation="Horizontal" Margin="{StaticResource GlobalMargin}">
+                        
+                        <ct:SplitButton MinWidth="120" HorizontalContentAlignment="Center" Command="{Binding ToggleEnableAutoScroll}">
+                            
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="&#x2713;" Visibility="{Binding EnableAutoScroll, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+                                <TextBlock Text="{x:Static prop:R.ToggleAutoScroll}"/>
+                            </StackPanel>
+                            
+                            <ct:SplitButton.SplitMenu>
+                                <ContextMenu>
+                                    <MenuItem Header="{x:Static prop:R.ButtonScrollToTop}" Command="{Binding ScrollToTop}"/>
+                                    <MenuItem Header="{x:Static prop:R.ButtonScrollToBottom}" Command="{Binding ScrollToBottom}"/>
+                                </ContextMenu>
+                            </ct:SplitButton.SplitMenu>
+                            
+                        </ct:SplitButton>
+                        
+                    </StackPanel>
                 </local:BorderCard>
                 
                 <local:BorderCard>
-                    <ItemsControl ItemsSource="{Binding Logs}" ScrollViewer.CanContentScroll="True" VirtualizingPanel.ScrollUnit="Pixel" VirtualizingStackPanel.VirtualizationMode="Recycling">
+                    <ItemsControl x:Name="LogContainer" ItemsSource="{Binding Logs}" ScrollViewer.CanContentScroll="True" VirtualizingPanel.ScrollUnit="Pixel" VirtualizingStackPanel.VirtualizationMode="Recycling">
                         
                         <ItemsControl.Template>
                             <ControlTemplate TargetType="ItemsControl">
-                                <ScrollViewer>
+                                <ScrollViewer x:Name="PART_ScrollViewerLogs">
                                     <ItemsPresenter/>
                                 </ScrollViewer>
                             </ControlTemplate>
