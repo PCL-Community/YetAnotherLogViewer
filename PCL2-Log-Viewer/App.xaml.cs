@@ -113,12 +113,12 @@ public partial class App
 
     public static void CloseAll()
     {
-        LogViewer.MainWindow.Create();
-        foreach (var w in new List<ViewerWindow>(ViewerWindows)) w.Close();
+        foreach (var w in ViewerWindows) w.Close();
     }
     
     public static void CloseAllAndShowMain()
     {
+        LogViewer.MainWindow.Create();
         CloseAll();
         LogViewer.MainWindow.ShowAndActivate();
     }

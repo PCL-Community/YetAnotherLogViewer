@@ -66,8 +66,18 @@ public partial class ViewerWindow
     {
         Dispatcher.BeginInvoke(() => LogCollectionView?.Refresh());
     }
+    
+    public void ResetFilters(bool isLevelOrModule /* true -> Level | false -> Module */ , bool value = false)
+    {
+        var pfx = isLevelOrModule ? "Level" : "Module";
+        pfx = $"Show{pfx}";
+        foreach (var k in Resources.Keys) if (k is string s && s.StartsWith(pfx)) Resources[k] = value;
+        if (isLevelOrModule) { foreach (UIElement child in LevelTogglesContainer.Children) if (child is ToggleButton button) button.IsChecked = value; }
+        else ModuleTogglesCollectionView?.Refresh();
+        ProcessViewRefresh();
+    }
 
-    private void Save(string path)
+    public void Save(string path)
     {
         Task.Run(() =>
         {
@@ -205,12 +215,6 @@ public partial class ViewerWindow
     private void MenuItemResetFilters_OnClick(object sender, RoutedEventArgs e)
     {
         if (sender is not MenuItem { Tag: string parentTag } || e.OriginalSource is not MenuItem { Tag: string tag }) return;
-        var pfx = parentTag == "L" ? "Level" : "Module";
-        pfx = $"Show{pfx}";
-        var value = tag == "S";
-        foreach (var k in Resources.Keys) if (k is string s && s.StartsWith(pfx)) Resources[k] = value;
-        if (parentTag == "L") { foreach (UIElement child in LevelTogglesContainer.Children) if (child is ToggleButton button) button.IsChecked = value; }
-        else ModuleTogglesCollectionView?.Refresh();
-        ProcessViewRefresh();
+        ResetFilters(parentTag == "L", tag == "S");
     }
 }
