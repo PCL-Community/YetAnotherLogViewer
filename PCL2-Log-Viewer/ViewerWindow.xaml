@@ -14,7 +14,6 @@
         uiExt:CursorSpotlightExtension.MaxBlurRadius="64"
         uiExt:CursorSpotlightExtension.RelativeSpotlightSize="0.5"
         DataContext="{Binding RelativeSource={RelativeSource Self}}"
-        Title="{x:Static prop:R.TextLoading}"
         WindowStartupLocation="CenterScreen"
         MinHeight="600" MinWidth="900" Height="600" Width="900">
     

@@ -113,7 +113,8 @@ public partial class App
 
     public static void CloseAll()
     {
-        foreach (var w in ViewerWindows) w.Close();
+        // Make a copy of the window collection to avoid concurrent modification exception
+        foreach (var w in new List<ViewerWindow>(ViewerWindows)) w.Close();
     }
     
     public static void CloseAllAndShowMain()

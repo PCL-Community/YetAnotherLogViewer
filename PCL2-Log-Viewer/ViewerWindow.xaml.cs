@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
@@ -7,6 +8,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Data;
+using System.Windows.Threading;
 using Microsoft.Win32;
 using PropertyChanged;
 using MessageBox = AdonisUI.Controls.MessageBox;
@@ -37,6 +39,7 @@ public partial class ViewerWindow
         _stream = stream;
         _parser = parser;
         _title = $"{Identifier} - {R.AppTitle}";
+        Title = $"{R.TextLoading} - {R.AppTitle}";
         InitializeComponent();
     }
 
@@ -52,8 +55,13 @@ public partial class ViewerWindow
     private bool _saving = false;
     private string? _path;
     
+    private DispatcherTimer? _pendingLogUpdateTimer;
+    private LogItem? _lastLogItem;
+    private readonly List<LogItem> _pendingLogs = [];
+    
     private void ProcessContentChanged()
     {
+        if (_lastLogItem != null) Title = _title;
         if (EnableAutoScroll) ScrollToBottom.Execute();
         // update save state
         if (!_stream.CanSave) return;
@@ -65,6 +73,26 @@ public partial class ViewerWindow
     private void ProcessViewRefresh()
     {
         Dispatcher.BeginInvoke(() => LogCollectionView?.Refresh());
+    }
+
+    private void ProcessPendingLogUpdate()
+    {
+        lock (_pendingLogs)
+        {
+            if (_pendingLogs.Count == 0) return;
+            foreach (var item in _pendingLogs)
+            {
+                var module = item.Module;
+                if (!Modules.Contains(module))
+                {
+                    Resources[$"ShowModule{module}"] = true;
+                    Modules.Add(module);
+                }
+                Logs.Add(item);
+            }
+            _pendingLogs.Clear();
+            ProcessContentChanged();
+        }
     }
     
     public void ResetFilters(bool isLevelOrModule /* true -> Level | false -> Module */ , bool value = false)
@@ -127,9 +155,7 @@ public partial class ViewerWindow
     protected override void OnInitialized(EventArgs e)
     {
         base.OnInitialized(e);
-        Title = _title;
         MenuItemSaveCopy.IsEnabled = _stream.CanSave;
-        _stream.Reload();
         LogCollectionView!.Filter = o =>
         {
             if (o is not LogItem item) return false;
@@ -137,26 +163,34 @@ public partial class ViewerWindow
             var levelModule = Resources[$"ShowModule{item.Module}"] as bool?;
             return levelShow == true && levelModule == true;
         };
-        _parser.BeginParse(_stream, this, item => Dispatcher.BeginInvoke(() =>
+        
+        _stream.Reload();
+        Task.Run(() => _parser.BeginParse(_stream, this, item =>
         {
-            LogItem tmp;
-            var count = Logs.Count;
-            if (count > 0 && (tmp = Logs.Last()).SimilarTo(item))
+            lock (_pendingLogs)
             {
-                tmp.Repeat++;
-                tmp.RepeatLastTime = item.Time;
-                Logs.RemoveAt(count - 1);
-                item = tmp;
+                if (_lastLogItem is {} lastItem && lastItem.SimilarTo(item))
+                {
+                    if (_pendingLogs.Count > 0) UpdateRepeat();
+                    else Dispatcher.BeginInvoke(UpdateRepeat);
+                    return;
+                    
+                    void UpdateRepeat()
+                    {
+                        lastItem.Repeat++;
+                        lastItem.RepeatLastTime = item.Time;
+                    }
+                }
+                
+                _pendingLogs.Add(item);
+                _lastLogItem = item;
             }
-            var module = item.Module;
-            if (!Modules.Contains(module))
-            {
-                Resources[$"ShowModule{module}"] = true;
-                Modules.Add(module);
-            }
-            Logs.Add(item);
-            ProcessContentChanged();
         }));
+        
+        ProcessPendingLogUpdate();
+        _pendingLogUpdateTimer = new DispatcherTimer(
+            TimeSpan.FromMilliseconds(50), DispatcherPriority.Background, (_, _) => ProcessPendingLogUpdate(), Dispatcher);
+        _pendingLogUpdateTimer.Start();
     }
 
     protected override void OnActivated(EventArgs e)
@@ -181,6 +215,7 @@ public partial class ViewerWindow
     {
         App.RemoveViewer(Identifier);
         _stream.Close();
+        _pendingLogUpdateTimer?.Stop();
         base.OnClosed(e);
     }
 

@@ -26,69 +26,66 @@ public class DefaultLogParser : ILogParser
     
     public void BeginParse(ILogStream stream, ViewerWindow viewer, Action<LogItem> itemCallback)
     {
-        Task.Run(() =>
+        string? module = null;
+        string? level = null;
+        var time = "";
+        var content = new StringBuilder();
+
+        var firstLine = true;
+
+        while (stream.NextLine() is { } line)
         {
-            string? module = null;
-            string? level = null;
-            var time = "";
-            var content = new StringBuilder();
-
-            var firstLine = true;
-
-            while (stream.NextLine() is { } line)
+            try
             {
-                try
+                if (PatternStartWithTime.IsMatch(line))
                 {
-                    if (PatternStartWithTime.IsMatch(line))
+                    // callback & clean
+                    if (firstLine) firstLine = false;
+                    else InvokeCallback();
+                    
+                    // analyze new item
+                    var sp = SplitBySpace(line);
+                    time = GetTag(sp[0]);
+                    if (PatternStartWithTag.IsMatch(sp[1]))
                     {
-                        // callback & clean
-                        if (firstLine) firstLine = false;
-                        else InvokeCallback();
+                        sp = SplitBySpace(sp[1]);
+                        module = GetTag(sp[0]);
                         
-                        // analyze new item
-                        var sp = SplitBySpace(line);
-                        time = GetTag(sp[0]);
                         if (PatternStartWithTag.IsMatch(sp[1]))
                         {
                             sp = SplitBySpace(sp[1]);
-                            module = GetTag(sp[0]);
-                            
-                            if (PatternStartWithTag.IsMatch(sp[1]))
-                            {
-                                sp = SplitBySpace(sp[1]);
-                                level = GetTag(sp[0]);
-                            }
-                            else if (LogItem.Levels.Contains(module))
-                            {
-                                level = module;
-                                module = null;
-                            }
+                            level = GetTag(sp[0]);
                         }
-                        content.Append(sp[1]);
+                        else if (LogItem.Levels.Contains(module))
+                        {
+                            level = module;
+                            module = null;
+                        }
                     }
-                    else content.Append('\n').Append(line);
+                    content.Append(sp[1]);
                 }
-                catch (Exception e)
-                {
-                    // TODO localization
-                    var l = line;
-                    viewer.Dispatcher.BeginInvoke(() => App.ShowException(e, $"Failed to parse line: {l}", viewer));
-                }
+                else content.Append('\n').Append(line);
             }
-            
-            if (!firstLine) InvokeCallback();
-
-            return;
-
-            void InvokeCallback()
+            catch (Exception e)
             {
-                var str = content.ToString();
-                if (level == null && PatternErrorOrFailed.IsMatch(str)) level = "Error";
-                itemCallback(new LogItem(time, module ?? "Default", level ?? "Null", str));
-                module = null;
-                level = null;
-                content.Clear();
+                // TODO localization
+                var l = line;
+                viewer.Dispatcher.BeginInvoke(() => App.ShowException(e, $"Failed to parse line: {l}", viewer));
             }
-        });
+        }
+        
+        if (!firstLine) InvokeCallback();
+
+        return;
+
+        void InvokeCallback()
+        {
+            var str = content.ToString();
+            if (level == null && PatternErrorOrFailed.IsMatch(str)) level = "Error";
+            itemCallback(new LogItem(time, module ?? "Default", level ?? "Null", str));
+            module = null;
+            level = null;
+            content.Clear();
+        }
     }
 }

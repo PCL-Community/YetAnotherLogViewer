@@ -1,7 +1,10 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel;
+using PropertyChanged;
 
 namespace LogViewer;
 
+[AddINotifyPropertyChangedInterface]
 public record LogItem(string Time, string Module, string Level, string Content)
 {
     public int Repeat { get; set; } = 1;
