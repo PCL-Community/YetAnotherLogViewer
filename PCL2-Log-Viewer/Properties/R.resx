@@ -264,4 +264,7 @@
   <data name="OptionHideAll" xml:space="preserve">
     <value>_Hide All</value>
   </data>
+  <data name="OptionRPCTest" xml:space="preserve">
+    <value>RPC _Test</value>
+  </data>
 </root>

@@ -312,6 +312,15 @@ namespace LogViewer.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to RPC _Test.
+        /// </summary>
+        public static string OptionRPCTest {
+            get {
+                return ResourceManager.GetString("OptionRPCTest", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to _Save.
         /// </summary>
         public static string OptionSave {

@@ -44,6 +44,7 @@
             </MenuItem>
             
             <MenuItem Header="{x:Static prop:R.MenuHelp}">
+                <MenuItem Header="{x:Static prop:R.OptionRPCTest}" Click="MenuItemRPCTest_OnClick"/>
                 <MenuItem Header="{x:Static prop:R.OptionRepository}" Click="MenuItemBrowseRepository_OnClick"/>
                 <MenuItem Header="{x:Static prop:R.OptionAbout}" Click="MenuItemShowAbout_OnClick"/>
             </MenuItem>

@@ -1,0 +1,75 @@
+﻿<Window x:Class="LogViewer.RPCTestWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:local="clr-namespace:LogViewer"
+        mc:Ignorable="d"
+        Title="RPC Test" Height="500" Width="500">
+    
+    <Window.Resources>
+        <Style TargetType="Grid">
+            <Setter Property="Margin" Value="5"/>
+        </Style>
+        <Style TargetType="Button">
+            <Setter Property="Margin" Value="5"/>
+        </Style>
+        <Style TargetType="TextBox">
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="FontFamily" Value="{StaticResource MonoFont}"/>
+            <Setter Property="MinHeight" Value="24"></Setter>
+        </Style>
+        <Style TargetType="Label">
+            <Setter Property="Margin" Value="0,-8,-3,-8"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+        </Style>
+        <Style TargetType="ComboBox">
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="FontFamily" Value="{StaticResource MonoFont}"/>
+        </Style>
+        <Style TargetType="ComboBoxItem"></Style>
+    </Window.Resources>
+    
+    <Grid>
+        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="5"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
+        
+        <Label Grid.Row="0" Grid.Column="0" Content="PipeName"/>
+        <TextBox Grid.Row="0" Grid.Column="1" AcceptsReturn="False" MaxLines="1" Text="PCLCE_RPC@" x:Name="TextBoxPipeName"/>
+        
+        <Label Grid.Row="0" Grid.Column="2" Content="Type"/>
+        <ComboBox Grid.Row="0" Grid.Column="3" SelectedIndex="2" x:Name="ComboBoxType">
+            <ComboBoxItem Content="GET"/>
+            <ComboBoxItem Content="SET"/>
+            <ComboBoxItem Content="REQ"/>
+        </ComboBox>
+        
+        <Label Grid.Row="1" Grid.Column="0" Content="Argument"/>
+        <TextBox Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3" AcceptsReturn="False" MaxLines="1" x:Name="TextBoxArgument"/>
+        
+        <Label Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="4" Content="Content"/>
+        <TextBox Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="4" x:Name="TextBoxContent"/>
+        
+        <Button Grid.Row="5" Grid.Column="3" Content="SEND REQUEST" Click="ButtonSendRequest_OnClick"/>
+        
+        <Label Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="4" Content="Response"/>
+        <TextBox Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="4" IsReadOnly="True" Text="Waiting for request" x:Name="TextBoxResponse"/>
+        
+    </Grid>
+</Window>

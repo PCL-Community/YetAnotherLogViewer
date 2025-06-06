@@ -100,6 +100,11 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="MarkupExtensions.cs" />
+    <Compile Include="PipeLogStream.cs" />
+    <Compile Include="PipeRPC.cs" />
+    <Compile Include="RPCTestWindow.xaml.cs">
+      <DependentUpon>RPCTestWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="StyledControls.cs" />
     <Compile Include="DefaultLogParser.cs" />
     <Compile Include="FileLogStream.cs" />
@@ -125,6 +130,7 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="RPCTestWindow.xaml" />
     <Page Include="ViewerWindow.xaml" />
   </ItemGroup>
   <ItemGroup>

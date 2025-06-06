@@ -75,4 +75,9 @@ public abstract class GeneralWindow : Window
         throw new NotImplementedException();
     }
     
+    protected void MenuItemRPCTest_OnClick(object sender, RoutedEventArgs e)
+    {
+        RPCTestWindow.CreateOrActivate();
+    }
+    
 }

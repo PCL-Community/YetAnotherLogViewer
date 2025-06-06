@@ -152,4 +152,7 @@
     <data name="OptionShowAll" xml:space="preserve">
         <value>显示全部 (_S)</value>
     </data>
+    <data name="OptionRPCTest" xml:space="preserve">
+        <value>RPC 测试 (_T)</value>
+    </data>
 </root>

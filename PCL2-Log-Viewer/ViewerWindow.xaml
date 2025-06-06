@@ -61,8 +61,8 @@
             </MenuItem>
             
             <MenuItem Header="{x:Static prop:R.MenuEdit}">
-                <MenuItem Header="{x:Static prop:R.OptionSelectAll}"/>
-                <MenuItem Header="{x:Static prop:R.OptionCopy}"/>
+                <MenuItem Header="{x:Static prop:R.OptionSelectAll}" Command="SelectAll"/>
+                <MenuItem Header="{x:Static prop:R.OptionCopy}" Command="Copy"/>
                 <Separator/>
                 <MenuItem Header="{x:Static prop:R.OptionScrollToTop}" Command="{Binding ScrollToTop}"/>
                 <MenuItem Header="{x:Static prop:R.OptionScrollToBottom}" Command="{Binding ScrollToBottom}"/>
@@ -107,6 +107,7 @@
             </MenuItem>
             
             <MenuItem Header="{x:Static prop:R.MenuHelp}">
+                <MenuItem Header="{x:Static prop:R.OptionRPCTest}" Click="MenuItemRPCTest_OnClick"/>
                 <MenuItem Header="{x:Static prop:R.OptionRepository}" Click="MenuItemBrowseRepository_OnClick"/>
                 <MenuItem Header="{x:Static prop:R.OptionAbout}" Click="MenuItemShowAbout_OnClick"/>
             </MenuItem>
